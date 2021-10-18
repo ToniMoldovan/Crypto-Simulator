@@ -1,13 +1,17 @@
-# Crypto-Simulator
+<img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/bitcoin-icon.png" width="48" height="48" style="margin-bottom: -100px; margin-left: 260px;">
+
+# Crypto Simulator
 Crypto simulator in Java using GUI
 
-<h2>What you'll be able to do with it? (in version 1.0)</h2>
+<h2>What you'll be able to do with it?</h2>
+<h4>version 1.0</h4>
+
 <ul>
     <li>
-        A user is already created for you, and you will be assigned $5,000 for the start;
+        You can create only one user and you will be assigned **$10,000**;
     </li>
     <li>
-        The Coin prices are changing randomly every 8 seconds (high or low);
+        The Coin prices are changing randomly every 5 seconds (high or low);
     </li>
     <li>
         You can buy Crypto Coins and sell them whenever you want, in order to gain more $$$ for your profit.
