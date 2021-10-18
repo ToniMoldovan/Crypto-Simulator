@@ -8,7 +8,7 @@ Crypto simulator in Java using GUI
 
 <ul>
     <li>
-        You can create only one user and you will be assigned **$10,000**;
+        You can create only one user and you will be assigned <strong>$10,000</strong;
     </li>
     <li>
         The Coin prices are changing randomly every 5 seconds (high or low);
