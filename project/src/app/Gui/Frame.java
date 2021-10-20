@@ -91,7 +91,7 @@ public class Frame extends JFrame implements ActionListener {
 
         //PRICE BUTTONS
         btcMarketPriceLabel.setBounds(250, 60, 180, 30);
-        btcMarketPriceLabel.setText(String.valueOf(BTC.showPrice()) + " USDT");
+        btcMarketPriceLabel.setText(String.valueOf(Bitcoin.coinPrice) + " USDT");
         btcMarketPriceLabel.setForeground(new Color(126, 0, 0));
         btcMarketPriceLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 
@@ -241,9 +241,21 @@ public class Frame extends JFrame implements ActionListener {
         frame.add(portofolioPanel);
         frame.setVisible(true);
 
+        Timer simpleTimer = new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btcMarketPriceLabel.setText(Bitcoin.coinPrice + " USDT");
+                ethMarketPriceLabel.setText(Etherum.coinPrice + " USDT");
+                adaMarketPriceLabel.setText(Cardano.coinPrice + " USDT");
+            }
+        });
+        simpleTimer.start();
     }
 
     //The logic
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

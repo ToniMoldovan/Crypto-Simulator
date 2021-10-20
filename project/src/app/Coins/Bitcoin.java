@@ -1,11 +1,9 @@
 package app.Coins;
 
 import app.Classes.IncrementThread;
-import app.Gui.Frame;
 import app.Interfaces.Currency;
 import java.util.Random;
 import java.lang.Thread;
-import app.Classes.*;
 
 public class Bitcoin implements Currency {
     public static int coinPrice = 2000;

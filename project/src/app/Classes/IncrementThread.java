@@ -18,8 +18,9 @@ public class IncrementThread implements Runnable{
             try{
                 this.randomNumber = rnd.nextInt(100);
                 Bitcoin.modifyPrice(randomNumber);
-                Thread.sleep(3000);
-                System.out.println(Bitcoin.coinPrice);
+                Etherum.modifyPrice(randomNumber);
+                Cardano.modifyPrice(randomNumber);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
