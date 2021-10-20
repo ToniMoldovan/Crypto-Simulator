@@ -2,6 +2,8 @@ package app.Gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import app.Classes.User;
 import app.Coins.*;
 import app.Interfaces.Currency;
 
-public class Frame {
+public class Frame extends JFrame implements ActionListener {
     //Create the coins
     Currency BTC = new Bitcoin();
     Currency ETH = new Etherum();
@@ -31,6 +33,10 @@ public class Frame {
     JLabel ethPortofolioLabel = new JLabel("ETH");
     JLabel adaPortofolioLabel = new JLabel("ADA");
 
+    JLabel btcUserCountLabel = new JLabel();
+    JLabel ethUserCountLabel = new JLabel();
+    JLabel adaUserCountLabel = new JLabel();
+
     JLabel usernameLabel = new JLabel();
     JLabel currentMoneyLabel = new JLabel();
     JLabel profitLabel = new JLabel();
@@ -48,6 +54,11 @@ public class Frame {
     JButton sellBTCButton = new JButton("SELL");
     JButton sellETHButton = new JButton("SELL");
     JButton sellADAButton = new JButton("SELL");
+
+    //Empty constructor
+    public Frame() {
+
+    }
 
     public Frame(String username) throws IOException {
         user = new User(username);
@@ -100,21 +111,21 @@ public class Frame {
         buyBTCButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         buyBTCButton.setBackground(new Color(32, 129, 195));
         buyBTCButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        buyBTCButton.addActionListener(this);
 
         buyETHButton.setFocusable(false);
         buyETHButton.setBounds(500, 150, 100, 30);
         buyETHButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         buyETHButton.setBackground(new Color(32, 129, 195));
         buyETHButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        buyETHButton.addActionListener(this);
 
         buyADAButton.setFocusable(false);
         buyADAButton.setBounds(500, 250, 100, 30);
         buyADAButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         buyADAButton.setBackground(new Color(32, 129, 195));
         buyADAButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        buyADAButton.addActionListener(this);
 
         //SELL BUTTONS
         sellBTCButton.setFocusable(false);
@@ -122,21 +133,21 @@ public class Frame {
         sellBTCButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         sellBTCButton.setBackground(new Color(32, 129, 195));
         sellBTCButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        sellBTCButton.addActionListener(this);
 
         sellETHButton.setFocusable(false);
         sellETHButton.setBounds(650, 150, 100, 30);
         sellETHButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         sellETHButton.setBackground(new Color(32, 129, 195));
         sellETHButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        sellETHButton.addActionListener(this);
 
         sellADAButton.setFocusable(false);
         sellADAButton.setBounds(650, 250, 100, 30);
         sellADAButton.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         sellADAButton.setBackground(new Color(32, 129, 195));
         sellADAButton.setForeground(new Color(238, 238, 238));
-        //Add actionListener!
+        sellADAButton.addActionListener(this);
 
         //Person image
         BufferedImage myPicture = ImageIO.read(new File("C:\\aToni\\Facultate - Anul II\\OOP\\Laboratoare\\Crypto-Simulator\\project\\src\\app\\Gui\\person.png"));
@@ -161,6 +172,7 @@ public class Frame {
         profitLabel.setForeground(new Color(212, 170, 125));
         profitLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 
+        //Portofolio panel
         JPanel portofolioPanel = new JPanel();
         portofolioPanel.setBounds(380, 360, 380, 230);
         portofolioPanel.setBackground(new Color(110, 131, 135));
@@ -177,6 +189,24 @@ public class Frame {
         adaPortofolioLabel.setBounds(400, 520, 50, 40);
         adaPortofolioLabel.setForeground(new Color(212, 170, 125));
         adaPortofolioLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+
+        //BTC COUNT USER
+        btcUserCountLabel.setBounds(500, 400, 50, 40);
+        btcUserCountLabel.setForeground(new Color(212, 170, 125));
+        btcUserCountLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+        btcUserCountLabel.setText(String.valueOf(User.coins.get(0)));
+
+        //ETH COUNT USER
+        ethUserCountLabel.setBounds(500, 460, 50, 40);
+        ethUserCountLabel.setForeground(new Color(212, 170, 125));
+        ethUserCountLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+        ethUserCountLabel.setText(String.valueOf(User.coins.get(1)));
+
+        //ADA COUNT USER
+        adaUserCountLabel.setBounds(500, 520, 50, 40);
+        adaUserCountLabel.setForeground(new Color(212, 170, 125));
+        adaUserCountLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+        adaUserCountLabel.setText(String.valueOf(User.coins.get(2)));
 
 
         marketPanel.add(btcNameLabel);
@@ -199,6 +229,10 @@ public class Frame {
         frame.add(ethPortofolioLabel);
         frame.add(adaPortofolioLabel);
 
+        frame.add(btcUserCountLabel);
+        frame.add(ethUserCountLabel);
+        frame.add(adaUserCountLabel);
+
         frame.add(currentMoneyLabel);
         frame.add(profitLabel);
         frame.add(usernameLabel);
@@ -206,7 +240,146 @@ public class Frame {
         frame.add(marketPanel);
         frame.add(portofolioPanel);
         frame.setVisible(true);
+
     }
 
+    //The logic
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //BUY
+        //Bitcoin
+        if (e.getSource() == buyBTCButton) {
+            //Insufficient founds to buy
+            if (user.getUserMoney() < BTC.showPrice()) {
+                System.out.println("[LOG][BUY BITCOIN]: Insufficient founds.");
+                return;
+            }
+            int currentCount = User.coins.get(0);
+            currentCount = currentCount + 1;
+
+            int currentMoney = user.getUserMoney();
+            currentMoney = currentMoney - BTC.showPrice();
+            user.setUserMoney(currentMoney);
+
+
+            User.coins.set(0, currentCount); //updates user bitcoin count
+            btcUserCountLabel.setText(String.valueOf(User.coins.get(0))); //updates user bitcoin count label
+            currentMoneyLabel.setText(String.valueOf("USDT: " + user.getUserMoney()));
+            new Frame();
+        }
+
+        //Etherum
+        if (e.getSource() == buyETHButton) {
+            //Insufficient founds to buy
+            if (user.getUserMoney() < ETH.showPrice()) {
+                System.out.println("[LOG][BUY ETH]: Insufficient founds.");
+                return;
+            }
+            int currentCount = User.coins.get(1);
+            currentCount = currentCount + 1;
+
+            int currentMoney = user.getUserMoney();
+            currentMoney = currentMoney - ETH.showPrice();
+            user.setUserMoney(currentMoney);
+
+            User.coins.set(1, currentCount);
+            ethUserCountLabel.setText(String.valueOf(User.coins.get(1)));
+            currentMoneyLabel.setText("USDT: " + String.valueOf(user.getUserMoney()));
+            new Frame();
+        }
+
+        //Cardano
+        if (e.getSource() == buyADAButton) {
+            //Insufficient founds to buy
+            if (user.getUserMoney() < ADA.showPrice()) {
+                System.out.println("[LOG][BUY ADA]: Insufficient founds.");
+                return;
+            }
+            int currentCount = User.coins.get(2);
+            currentCount = currentCount + 1;
+
+            int currentMoney = user.getUserMoney();
+            currentMoney = currentMoney - ADA.showPrice();
+            user.setUserMoney(currentMoney);
+
+            User.coins.set(2, currentCount);
+            adaUserCountLabel.setText(String.valueOf(User.coins.get(2)));
+            currentMoneyLabel.setText(String.valueOf("USDT: " + user.getUserMoney()));
+            new Frame();
+        }
+
+        //SELL
+        //Bitcoin
+        if (e.getSource() == sellBTCButton) {
+            if (User.coins.get(0) > 0) {
+                //Selling operation back-end
+                int userCurrentCoins = User.coins.get(0);
+                userCurrentCoins = userCurrentCoins - 1;
+                User.coins.set(0, userCurrentCoins);
+
+                int userCurrentMoney = user.getUserMoney();
+                userCurrentMoney = userCurrentMoney + BTC.showPrice();
+                user.setUserMoney(userCurrentMoney);
+
+                //Updating the front-end
+
+                btcUserCountLabel.setText(String.valueOf(userCurrentCoins));
+                currentMoneyLabel.setText("USDT: " + String.valueOf(user.getUserMoney()));
+                new Frame();
+            }
+            else {
+                System.out.println("[LOG][SELL BITCOIN]: Can't sell. Not enough coins.");
+                return;
+            }
+        }
+
+        //Etherum
+        if (e.getSource() == sellETHButton) {
+            if (User.coins.get(1) > 0) {
+                //Selling operation back-end
+                int userCurrentCoins = User.coins.get(1);
+                userCurrentCoins = userCurrentCoins - 1;
+                User.coins.set(1, userCurrentCoins);
+
+                int userCurrentMoney = user.getUserMoney();
+                userCurrentMoney = userCurrentMoney + ETH.showPrice();
+                user.setUserMoney(userCurrentMoney);
+
+                //Updating the front-end
+
+                ethUserCountLabel.setText(String.valueOf(userCurrentCoins));
+                currentMoneyLabel.setText("USDT: " + String.valueOf(user.getUserMoney()));
+                new Frame();
+            }
+            else {
+                System.out.println("[LOG][SELL ETH]: Can't sell. Not enough coins.");
+                return;
+            }
+        }
+
+        //Cardano
+        if (e.getSource() == sellADAButton) {
+            if (User.coins.get(2) > 0) {
+                //Selling operation back-end
+                int userCurrentCoins = User.coins.get(2);
+                userCurrentCoins = userCurrentCoins - 1;
+                User.coins.set(2, userCurrentCoins);
+
+                int userCurrentMoney = user.getUserMoney();
+                userCurrentMoney = userCurrentMoney + ADA.showPrice();
+                user.setUserMoney(userCurrentMoney);
+
+                //Updating the front-end
+
+                adaUserCountLabel.setText(String.valueOf(userCurrentCoins));
+                currentMoneyLabel.setText("USDT: " + String.valueOf(user.getUserMoney()));
+                new Frame();
+            }
+            else {
+                System.out.println("[LOG][SELL ADA]: Can't sell. Not enough coins.");
+                return;
+            }
+        }
+    }
 }
